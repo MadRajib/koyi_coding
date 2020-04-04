@@ -19,21 +19,21 @@ defaults:
 description: Stylish Jekyll Theme
 author:
   name: MadRajib
-  email: koyi@coding.com
+  # email: koyi@coding.com
   github: MadRajib
-  twitter: 
-  pinterest: asd123
+  twitter: Madhab_Sharma
+  pinterest: madhabsharma94
   linkedin: asd123
+  youtube  : madrajib
   bio: A Maker and A Coder!
   email_md5: cd12e0cd5afd94037040963c8843ec22
 
 # rss_path: feed.xml
 categories_path: categories.html
 tags_path: tags.html
-# set it as url of an image
-# sidebar_background_image: https://www.dropbox.com/s/g9h23zrycedxtk5/sky.png?raw=1
 
-BASE_PATH: "/koyi_coding"
+
+# BASE_PATH: "/koyi_coding"
 
 plugins:
   - jekyll-paginate
