@@ -33,7 +33,7 @@ categories_path: categories.html
 tags_path: tags.html
 
 
-# BASE_PATH: "/koyi_coding"
+BASE_PATH: "/koyi_coding"
 
 plugins:
   - jekyll-paginate
