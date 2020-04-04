@@ -23,17 +23,17 @@ author:
   github: MadRajib
   twitter: Madhab_Sharma
   pinterest: madhabsharma94
-  linkedin: asd123
-  youtube  : madrajib
+  linkedin: madhab-sharma-1ab56310a
+  youtube  : c/MadRajibLab
   bio: A Maker and A Coder!
   email_md5: cd12e0cd5afd94037040963c8843ec22
-
+  
 # rss_path: feed.xml
 categories_path: categories.html
 tags_path: tags.html
 
 
-BASE_PATH: "/koyi_coding"
+# BASE_PATH: "/koyi_coding"
 
 plugins:
   - jekyll-paginate
