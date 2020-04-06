@@ -1,0 +1,155 @@
+I"hB<p>Validate if a given string can be interpreted as a decimal number.</p>
+
+<p><strong><a href="https://leetcode.com/problems/valid-number/">Go to Problem</a></strong></p>
+
+<figure class="highlight"><pre><code class="language-cpp" data-lang="cpp"><span class="n">Some</span> <span class="n">examples</span><span class="o">:</span>
+<span class="s">"0"</span> <span class="o">=&gt;</span> <span class="nb">true</span>
+<span class="s">" 0.1 "</span> <span class="o">=&gt;</span> <span class="nb">true</span>
+<span class="s">"abc"</span> <span class="o">=&gt;</span> <span class="nb">false</span>
+<span class="s">"1 a"</span> <span class="o">=&gt;</span> <span class="nb">false</span>
+<span class="s">"2e10"</span> <span class="o">=&gt;</span> <span class="nb">true</span>
+<span class="s">" -90e3   "</span> <span class="o">=&gt;</span> <span class="nb">true</span>
+<span class="s">" 1e"</span> <span class="o">=&gt;</span> <span class="nb">false</span>
+<span class="s">"e3"</span> <span class="o">=&gt;</span> <span class="nb">false</span>
+<span class="s">" 6e-1"</span> <span class="o">=&gt;</span> <span class="nb">true</span>
+<span class="s">" 99e2.5 "</span> <span class="o">=&gt;</span> <span class="nb">false</span>
+<span class="s">"53.5e93"</span> <span class="o">=&gt;</span> <span class="nb">true</span>
+<span class="s">" --6 "</span> <span class="o">=&gt;</span> <span class="nb">false</span>
+<span class="s">"-+3"</span> <span class="o">=&gt;</span> <span class="nb">false</span>
+<span class="s">"95a54e53"</span> <span class="o">=&gt;</span> <span class="nb">false</span></code></pre></figure>
+
+<p><strong>Note:</strong></p>
+
+<p>It is intended for the problem statement to be ambiguous.<br />
+You should gather all requirements up front before implementing one.<br /> 
+However, here is a list of characters that can be in a valid decimal number:</p>
+
+<ol>
+  <li>Numbers 0-9</li>
+  <li>Exponent - “e”</li>
+  <li>Positive/negative sign - “+”/”-“</li>
+  <li>Decimal point - “.”</li>
+</ol>
+
+<h3 id="solution"><span style="color:#e74c3c">Solution:</span></h3>
+<hr />
+<p><strong>Approach: DFA</strong></p>
+<ul>
+  <li>Time Complexity:  O(n)</li>
+  <li>Space Complexity: O()</li>
+</ul>
+
+<p>Lets Represent the current problem using DFA:</p>
+
+<p><img src="/assets/media/valid_number_dfa_leetcode.png" alt="DFA" title="Logo Title Text 2" /></p>
+
+<p><strong>1.</strong> How do we represent the states set in code(c++) ?&lt;/br&gt;
+    &gt;</p>
+
+<p><strong>C++ Implementation:</strong></p>
+
+<figure class="highlight"><pre><code class="language-cpp" data-lang="cpp"><span class="kt">bool</span> <span class="nf">isNumber</span><span class="p">(</span><span class="n">string</span> <span class="n">s</span><span class="p">)</span> <span class="p">{</span>
+    
+    <span class="n">vector</span><span class="o">&lt;</span><span class="n">unordered_map</span><span class="o">&lt;</span><span class="n">string</span><span class="p">,</span><span class="kt">int</span><span class="o">&gt;&gt;</span> <span class="n">states</span><span class="p">;</span>
+    
+    <span class="p">{</span> <span class="c1">// State 0</span>
+        <span class="n">unordered_map</span><span class="o">&lt;</span><span class="n">string</span><span class="p">,</span><span class="kt">int</span><span class="o">&gt;</span> <span class="n">map</span><span class="p">;</span>
+        <span class="n">states</span><span class="p">.</span><span class="n">push_back</span><span class="p">(</span><span class="n">map</span><span class="p">);</span>
+    <span class="p">}</span>
+    
+    <span class="p">{</span> <span class="c1">//State 1</span>
+        <span class="n">unordered_map</span><span class="o">&lt;</span><span class="n">string</span><span class="p">,</span><span class="kt">int</span><span class="o">&gt;</span> <span class="n">map</span><span class="p">;</span>
+        <span class="n">map</span><span class="p">.</span><span class="n">insert</span><span class="p">({</span><span class="s">"space"</span><span class="p">,</span> <span class="mi">1</span><span class="p">});</span>
+        <span class="n">map</span><span class="p">.</span><span class="n">insert</span><span class="p">({</span><span class="s">"sign"</span> <span class="p">,</span> <span class="mi">2</span><span class="p">});</span>
+        <span class="n">map</span><span class="p">.</span><span class="n">insert</span><span class="p">({</span><span class="s">"digit"</span><span class="p">,</span> <span class="mi">3</span><span class="p">});</span>
+        <span class="n">map</span><span class="p">.</span><span class="n">insert</span><span class="p">({</span><span class="s">"."</span><span class="p">,</span><span class="mi">4</span><span class="p">});</span>
+        <span class="n">states</span><span class="p">.</span><span class="n">push_back</span><span class="p">(</span><span class="n">map</span><span class="p">);</span>
+    <span class="p">}</span>
+    
+    <span class="p">{</span> <span class="c1">//State 2</span>
+        <span class="n">unordered_map</span><span class="o">&lt;</span><span class="n">string</span><span class="p">,</span><span class="kt">int</span><span class="o">&gt;</span> <span class="n">map</span><span class="p">;</span>
+        <span class="n">map</span><span class="p">.</span><span class="n">insert</span><span class="p">({</span><span class="s">"digit"</span><span class="p">,</span> <span class="mi">3</span><span class="p">});</span>
+        <span class="n">map</span><span class="p">.</span><span class="n">insert</span><span class="p">({</span><span class="s">"."</span><span class="p">,</span> <span class="mi">4</span><span class="p">});</span>
+        <span class="n">states</span><span class="p">.</span><span class="n">push_back</span><span class="p">(</span><span class="n">map</span><span class="p">);</span>
+    <span class="p">}</span>
+    
+    <span class="p">{</span> <span class="c1">//State 3</span>
+        <span class="n">unordered_map</span><span class="o">&lt;</span><span class="n">string</span><span class="p">,</span><span class="kt">int</span><span class="o">&gt;</span> <span class="n">map</span><span class="p">;</span>
+        <span class="n">map</span><span class="p">.</span><span class="n">insert</span><span class="p">({</span><span class="s">"digit"</span><span class="p">,</span> <span class="mi">3</span><span class="p">});</span>
+        <span class="n">map</span><span class="p">.</span><span class="n">insert</span><span class="p">({</span><span class="s">"."</span><span class="p">,</span><span class="mi">5</span><span class="p">});</span>
+        <span class="n">map</span><span class="p">.</span><span class="n">insert</span><span class="p">({</span><span class="s">"e"</span><span class="p">,</span><span class="mi">6</span><span class="p">});</span>
+        <span class="n">map</span><span class="p">.</span><span class="n">insert</span><span class="p">({</span><span class="s">"space"</span><span class="p">,</span><span class="mi">9</span><span class="p">});</span>
+        <span class="n">states</span><span class="p">.</span><span class="n">push_back</span><span class="p">(</span><span class="n">map</span><span class="p">);</span>
+    <span class="p">}</span>
+    
+    <span class="p">{</span> <span class="c1">//State 4</span>
+        <span class="n">unordered_map</span><span class="o">&lt;</span><span class="n">string</span><span class="p">,</span><span class="kt">int</span><span class="o">&gt;</span> <span class="n">map</span><span class="p">;</span>
+        <span class="n">map</span><span class="p">.</span><span class="n">insert</span><span class="p">({</span><span class="s">"digit"</span><span class="p">,</span> <span class="mi">5</span><span class="p">});</span>
+        <span class="n">states</span><span class="p">.</span><span class="n">push_back</span><span class="p">(</span><span class="n">map</span><span class="p">);</span>
+    <span class="p">}</span>
+    <span class="p">{</span> <span class="c1">//State 5</span>
+        <span class="n">unordered_map</span><span class="o">&lt;</span><span class="n">string</span><span class="p">,</span><span class="kt">int</span><span class="o">&gt;</span> <span class="n">map</span><span class="p">;</span>
+        <span class="n">map</span><span class="p">.</span><span class="n">insert</span><span class="p">({</span><span class="s">"digit"</span><span class="p">,</span> <span class="mi">5</span><span class="p">});</span>
+        <span class="n">map</span><span class="p">.</span><span class="n">insert</span><span class="p">({</span><span class="s">"e"</span><span class="p">,</span><span class="mi">6</span><span class="p">});</span>
+        <span class="n">map</span><span class="p">.</span><span class="n">insert</span><span class="p">({</span><span class="s">"space"</span><span class="p">,</span><span class="mi">9</span><span class="p">});</span>
+        <span class="n">states</span><span class="p">.</span><span class="n">push_back</span><span class="p">(</span><span class="n">map</span><span class="p">);</span>
+    <span class="p">}</span>
+    
+    <span class="p">{</span> <span class="c1">//State 6</span>
+        <span class="n">unordered_map</span><span class="o">&lt;</span><span class="n">string</span><span class="p">,</span><span class="kt">int</span><span class="o">&gt;</span> <span class="n">map</span><span class="p">;</span>
+        <span class="n">map</span><span class="p">.</span><span class="n">insert</span><span class="p">({</span><span class="s">"digit"</span><span class="p">,</span> <span class="mi">8</span><span class="p">});</span>
+        <span class="n">map</span><span class="p">.</span><span class="n">insert</span><span class="p">({</span><span class="s">"sign"</span><span class="p">,</span> <span class="mi">7</span><span class="p">});</span>
+        <span class="n">states</span><span class="p">.</span><span class="n">push_back</span><span class="p">(</span><span class="n">map</span><span class="p">);</span>
+    <span class="p">}</span>
+    <span class="p">{</span> <span class="c1">//State 7</span>
+        <span class="n">unordered_map</span><span class="o">&lt;</span><span class="n">string</span><span class="p">,</span><span class="kt">int</span><span class="o">&gt;</span> <span class="n">map</span><span class="p">;</span>
+        <span class="n">map</span><span class="p">.</span><span class="n">insert</span><span class="p">({</span><span class="s">"digit"</span><span class="p">,</span><span class="mi">8</span><span class="p">});</span>
+        <span class="n">states</span><span class="p">.</span><span class="n">push_back</span><span class="p">(</span><span class="n">map</span><span class="p">);</span>
+    <span class="p">}</span>
+    <span class="p">{</span> <span class="c1">//State 8</span>
+        <span class="n">unordered_map</span><span class="o">&lt;</span><span class="n">string</span><span class="p">,</span><span class="kt">int</span><span class="o">&gt;</span> <span class="n">map</span><span class="p">;</span>
+        <span class="n">map</span><span class="p">.</span><span class="n">insert</span><span class="p">({</span><span class="s">"digit"</span><span class="p">,</span> <span class="mi">8</span><span class="p">});</span>
+        <span class="n">map</span><span class="p">.</span><span class="n">insert</span><span class="p">({</span><span class="s">"space"</span><span class="p">,</span> <span class="mi">9</span><span class="p">});</span>
+        <span class="n">states</span><span class="p">.</span><span class="n">push_back</span><span class="p">(</span><span class="n">map</span><span class="p">);</span>
+    <span class="p">}</span>
+    
+    <span class="p">{</span> <span class="c1">//State 9</span>
+        <span class="n">unordered_map</span><span class="o">&lt;</span><span class="n">string</span><span class="p">,</span><span class="kt">int</span><span class="o">&gt;</span> <span class="n">map</span><span class="p">;</span>
+        <span class="n">map</span><span class="p">.</span><span class="n">insert</span><span class="p">({</span><span class="s">"space"</span><span class="p">,</span><span class="mi">9</span><span class="p">});</span>
+        <span class="n">states</span><span class="p">.</span><span class="n">push_back</span><span class="p">(</span><span class="n">map</span><span class="p">);</span>
+    <span class="p">}</span>
+        
+        
+        <span class="n">unordered_map</span><span class="o">&lt;</span><span class="kt">int</span><span class="p">,</span><span class="kt">int</span><span class="o">&gt;</span> <span class="n">final_state</span><span class="p">;</span>
+        <span class="n">final_state</span><span class="p">.</span><span class="n">insert</span><span class="p">({</span><span class="mi">3</span><span class="p">,</span><span class="mi">0</span><span class="p">});</span>
+        <span class="n">final_state</span><span class="p">.</span><span class="n">insert</span><span class="p">({</span><span class="mi">5</span><span class="p">,</span><span class="mi">0</span><span class="p">});</span>
+        <span class="n">final_state</span><span class="p">.</span><span class="n">insert</span><span class="p">({</span><span class="mi">8</span><span class="p">,</span><span class="mi">0</span><span class="p">});</span>
+        <span class="n">final_state</span><span class="p">.</span><span class="n">insert</span><span class="p">({</span><span class="mi">9</span><span class="p">,</span><span class="mi">0</span><span class="p">});</span>
+        
+        <span class="kt">int</span> <span class="n">currentState</span> <span class="o">=</span> <span class="mi">1</span><span class="p">;</span>
+        <span class="k">for</span><span class="p">(</span><span class="k">auto</span> <span class="n">c</span><span class="o">:</span> <span class="n">s</span><span class="p">){</span>
+            <span class="n">string</span> <span class="n">char_s</span> <span class="o">=</span> <span class="s">""</span><span class="p">;</span>
+            <span class="k">if</span><span class="p">(</span><span class="n">isdigit</span><span class="p">(</span><span class="n">c</span><span class="p">)){</span>
+                <span class="n">char_s</span> <span class="o">=</span> <span class="s">"digit"</span><span class="p">;</span>
+            <span class="p">}</span><span class="k">else</span> <span class="k">if</span><span class="p">(</span><span class="n">c</span><span class="o">==</span><span class="sc">' '</span><span class="p">){</span>
+                <span class="n">char_s</span> <span class="o">=</span> <span class="s">"space"</span><span class="p">;</span>
+            <span class="p">}</span><span class="k">else</span> <span class="k">if</span><span class="p">(</span><span class="n">c</span><span class="o">==</span><span class="sc">'+'</span> <span class="o">||</span><span class="n">c</span> <span class="o">==</span><span class="sc">'-'</span><span class="p">){</span>
+                <span class="n">char_s</span> <span class="o">=</span><span class="s">"sign"</span><span class="p">;</span>
+            <span class="p">}</span><span class="k">else</span><span class="p">{</span>
+                <span class="n">char_s</span> <span class="o">=</span> <span class="n">c</span><span class="p">;</span>
+            <span class="p">}</span>
+            
+            <span class="k">if</span><span class="p">(</span><span class="n">states</span><span class="p">[</span><span class="n">currentState</span><span class="p">].</span><span class="n">find</span><span class="p">(</span><span class="n">char_s</span><span class="p">)</span> <span class="o">==</span> <span class="n">states</span><span class="p">[</span><span class="n">currentState</span><span class="p">].</span><span class="n">end</span><span class="p">()){</span>
+                <span class="k">return</span> <span class="nb">false</span><span class="p">;</span>
+            <span class="p">}</span>
+            
+            <span class="n">currentState</span> <span class="o">=</span> <span class="n">states</span><span class="p">[</span><span class="n">currentState</span><span class="p">].</span><span class="n">find</span><span class="p">(</span><span class="n">char_s</span><span class="p">)</span><span class="o">-&gt;</span><span class="n">second</span><span class="p">;</span>
+            
+        <span class="p">}</span>
+        
+        <span class="k">if</span> <span class="p">(</span><span class="n">final_state</span><span class="p">.</span><span class="n">find</span><span class="p">(</span><span class="n">currentState</span><span class="p">)</span> <span class="o">==</span> <span class="n">final_state</span><span class="p">.</span><span class="n">end</span><span class="p">()){</span>
+            <span class="k">return</span> <span class="nb">false</span><span class="p">;</span>
+        <span class="p">}</span>
+        <span class="k">return</span> <span class="nb">true</span><span class="p">;</span>
+    <span class="p">}</span></code></pre></figure>
+:ET

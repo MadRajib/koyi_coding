@@ -1,0 +1,64 @@
+I"/<p>Validate if a given string can be interpreted as a decimal number.</p>
+
+<p><strong><a href="https://leetcode.com/problems/valid-number/">Go to Problem</a></strong></p>
+
+<figure class="highlight"><pre><code class="language-cpp" data-lang="cpp"><span class="n">Some</span> <span class="n">examples</span><span class="o">:</span>
+<span class="s">"0"</span> <span class="o">=&gt;</span> <span class="nb">true</span>
+<span class="s">" 0.1 "</span> <span class="o">=&gt;</span> <span class="nb">true</span>
+<span class="s">"abc"</span> <span class="o">=&gt;</span> <span class="nb">false</span>
+<span class="s">"1 a"</span> <span class="o">=&gt;</span> <span class="nb">false</span>
+<span class="s">"2e10"</span> <span class="o">=&gt;</span> <span class="nb">true</span>
+<span class="s">" -90e3   "</span> <span class="o">=&gt;</span> <span class="nb">true</span>
+<span class="s">" 1e"</span> <span class="o">=&gt;</span> <span class="nb">false</span>
+<span class="s">"e3"</span> <span class="o">=&gt;</span> <span class="nb">false</span>
+<span class="s">" 6e-1"</span> <span class="o">=&gt;</span> <span class="nb">true</span>
+<span class="s">" 99e2.5 "</span> <span class="o">=&gt;</span> <span class="nb">false</span>
+<span class="s">"53.5e93"</span> <span class="o">=&gt;</span> <span class="nb">true</span>
+<span class="s">" --6 "</span> <span class="o">=&gt;</span> <span class="nb">false</span>
+<span class="s">"-+3"</span> <span class="o">=&gt;</span> <span class="nb">false</span>
+<span class="s">"95a54e53"</span> <span class="o">=&gt;</span> <span class="nb">false</span></code></pre></figure>
+
+<p><strong>Note:</strong></p>
+
+<p>It is intended for the problem statement to be ambiguous.<br />
+You should gather all requirements up front before implementing one.<br /> 
+However, here is a list of characters that can be in a valid decimal number:</p>
+
+<ol>
+  <li>Numbers 0-9</li>
+  <li>Exponent - “e”</li>
+  <li>Positive/negative sign - “+”/”-“</li>
+  <li>Decimal point - “.”</li>
+</ol>
+
+<h3 id="solution"><span style="color:#e74c3c">Solution:</span></h3>
+<hr />
+<p><strong>Approach: DFA</strong></p>
+<ul>
+  <li>Time Complexity:  O(n)</li>
+  <li>Space Complexity: O()</li>
+</ul>
+
+<p><strong>Algorithm</strong>:
+First create a window of k elements – <br />
+    Every new element going into window(deque):
+    1. Remove all the smaller elements indexes from the deque 
+    (since these elements are no longer required) and 
+    1. add the new element at the end. 
+Once the window is created for first k elements then <br />
+    For every new element going into window(deque):
+    1. Save the front index (since it is the index of max element of current window!).
+    1. Remove the element index which falls outside the window.
+    &gt;i.e indexs (<em>from the front of window</em>) which are less than <strong>i-k+1</strong>.<br />
+    &gt;Since a k size window will hold j-i+1 elements,
+    where j and i are end and starting index of window.
+    1. And again remove all the smaller elements indexes from the deque 
+    (since these elements are no longer required) and 
+    1. add the new element index at the end.
+At the end max element the last window is yet to be saved,
+    so we save it.</p>
+
+<p><strong>C++</strong></p>
+
+<figure class="highlight"><pre><code class="language-cpp" data-lang="cpp"><span class="err">}</span></code></pre></figure>
+:ET
