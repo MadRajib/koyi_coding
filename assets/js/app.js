@@ -20,7 +20,7 @@
      */
     function activateTab() {
       
-      if(['{{ site.BASE_PATH }}/tags.html', '{{ site.BASE_PATH }}/categories.html'].indexOf(window.location.pathname) > -1) {
+      if(['./tags.html', './categories.html'].indexOf(window.location.pathname) > -1) {
         var hash = window.location.hash;
           
         if(hash)
