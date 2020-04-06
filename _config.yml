@@ -6,7 +6,7 @@ exclude: ["README.md"] # files to exclude
 highlighter: rouge
 markdown: kramdown
 disqus: Koyi Coding
-google_analytics: UA-162761091-1
+# google_analytics: UA-162761091-1
 title: Koyi Coding
 
 defaults:
@@ -14,7 +14,7 @@ defaults:
     scope:
       path: "" # empty string for all files
     values:
-      title: Koyi Coding
+      # title: Koyi Coding
 
 description: Stylish Jekyll Theme
 author:
