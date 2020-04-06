@@ -1,7 +1,7 @@
 ---
 layout: post
 title: Valid Number
-categories: [Strings,Hard,DFA]
+categories: Strings
 tags: [valid number,leetcode,interviewbit]
 ---
 
