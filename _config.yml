@@ -10,10 +10,11 @@ disqus: Koyi Coding
 title: Koyi Coding
 
 defaults:
+  -
     scope:
       path: "" # empty string for all files
     values:
-      # title: Koyi Coding
+      title: Koyi Coding
 
 description: Stylish Jekyll Theme
 author:
@@ -32,7 +33,7 @@ categories_path: categories.html
 tags_path: tags.html
 
 
-BASE_PATH: "/koyi_coding"
+# BASE_PATH: "/koyi_coding"
 
 plugins:
   - jekyll-paginate
