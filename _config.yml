@@ -13,7 +13,7 @@ defaults:
     scope:
       path: "" # empty string for all files
     values:
-      title: Koyi Coding
+      # title: Koyi Coding
 
 description: Stylish Jekyll Theme
 author:
