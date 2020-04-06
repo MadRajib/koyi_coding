@@ -9,8 +9,7 @@ Validate if a given string can be interpreted as a decimal number.
 
 **[Go to Problem](https://leetcode.com/problems/valid-number/)**
 
-
-{% highlight  cpp%}
+```
 Some examples:
 "0" => true
 " 0.1 " => true
@@ -26,8 +25,7 @@ Some examples:
 " --6 " => false
 "-+3" => false
 "95a54e53" => false
-
-{% endhighlight %}
+```
 
 
 __Note:__ 

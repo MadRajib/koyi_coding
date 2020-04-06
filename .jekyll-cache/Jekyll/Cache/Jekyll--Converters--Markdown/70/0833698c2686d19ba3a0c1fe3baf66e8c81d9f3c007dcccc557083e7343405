@@ -1,22 +1,23 @@
-I"P<p>Validate if a given string can be interpreted as a decimal number.</p>
+I"L<p>Validate if a given string can be interpreted as a decimal number.</p>
 
 <p><strong><a href="https://leetcode.com/problems/valid-number/">Go to Problem</a></strong></p>
 
-<figure class="highlight"><pre><code class="language-cpp" data-lang="cpp"><span class="n">Some</span> <span class="n">examples</span><span class="o">:</span>
-<span class="s">"0"</span> <span class="o">=&gt;</span> <span class="nb">true</span>
-<span class="s">" 0.1 "</span> <span class="o">=&gt;</span> <span class="nb">true</span>
-<span class="s">"abc"</span> <span class="o">=&gt;</span> <span class="nb">false</span>
-<span class="s">"1 a"</span> <span class="o">=&gt;</span> <span class="nb">false</span>
-<span class="s">"2e10"</span> <span class="o">=&gt;</span> <span class="nb">true</span>
-<span class="s">" -90e3   "</span> <span class="o">=&gt;</span> <span class="nb">true</span>
-<span class="s">" 1e"</span> <span class="o">=&gt;</span> <span class="nb">false</span>
-<span class="s">"e3"</span> <span class="o">=&gt;</span> <span class="nb">false</span>
-<span class="s">" 6e-1"</span> <span class="o">=&gt;</span> <span class="nb">true</span>
-<span class="s">" 99e2.5 "</span> <span class="o">=&gt;</span> <span class="nb">false</span>
-<span class="s">"53.5e93"</span> <span class="o">=&gt;</span> <span class="nb">true</span>
-<span class="s">" --6 "</span> <span class="o">=&gt;</span> <span class="nb">false</span>
-<span class="s">"-+3"</span> <span class="o">=&gt;</span> <span class="nb">false</span>
-<span class="s">"95a54e53"</span> <span class="o">=&gt;</span> <span class="nb">false</span></code></pre></figure>
+<div class="highlighter-rouge"><div class="highlight"><pre class="highlight"><code>Some examples:
+"0" =&gt; true
+" 0.1 " =&gt; true
+"abc" =&gt; false
+"1 a" =&gt; false
+"2e10" =&gt; true
+" -90e3   " =&gt; true
+" 1e" =&gt; false
+"e3" =&gt; false
+" 6e-1" =&gt; true
+" 99e2.5 " =&gt; false
+"53.5e93" =&gt; true
+" --6 " =&gt; false
+"-+3" =&gt; false
+"95a54e53" =&gt; false
+</code></pre></div></div>
 
 <p><strong>Note:</strong></p>
 
