@@ -1,7 +1,6 @@
 (function($) {
 
  function init() {
-    console.log("called");
     /* Sidebar height set */
     $sidebarStyles = $('.sidebar').attr('style') || "";
     $sidebarStyles += ' min-height: ' + $(document).height() + 'px;';
@@ -19,11 +18,11 @@
      * Tags & categories tab activation based on hash value. If hash is undefined then first tab is activated.
      */
     function activateTab() {
-      console.log(window.location.hash);
-      console.log(window.location);
-      if(['/tags.html', '/categories.html'].indexOf(window.location.pathname) > -1) {
-        var hash = window.location.hash;
-          
+      var lastPath = "/"+window.location.pathname.split("/").pop();
+
+      if(['/tags.html', '/categories.html'].indexOf(lastPath) > -1) {
+      
+        var hash = window.location.hash;    
         if(hash)
           $('.tab-pane').length && $('a[href="' + hash + '"]').tab('show');
         else
