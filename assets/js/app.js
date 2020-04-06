@@ -1,6 +1,7 @@
 (function($) {
 
  function init() {
+    console.log("called");
     /* Sidebar height set */
     $sidebarStyles = $('.sidebar').attr('style') || "";
     $sidebarStyles += ' min-height: ' + $(document).height() + 'px;';
