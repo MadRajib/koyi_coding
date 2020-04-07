@@ -167,40 +167,38 @@ bool isNumber(string s) {
     }
         
         
-        unordered_map<int,int> final_state;
-        final_state.insert({3,0});
-        final_state.insert({5,0});
-        final_state.insert({8,0});
-        final_state.insert({9,0});
+    unordered_map<int,int> final_state;
+    final_state.insert({3,0});
+    final_state.insert({5,0});
+    final_state.insert({8,0});
+    final_state.insert({9,0});
+    
+    int currentState = 1;
+    for(auto c: s){
+        // a. map the char to valid alphabets of ourdfa
+        string char_s = "";
+        if(isdigit(c)){
+            char_s = "digit";
+        }else if(c==' '){
+            char_s = "space";
+        }else if(c=='+' ||c =='-'){
+            char_s ="sign";
+        }else{
+            char_s = c;
+        }
+        //b. check if the i/p is present in currentstate
+        if(states[currentState].find(char_s) ==states[currentState].end()){
+            return false;   //if not present returnfalse
+        }
+        //c. if present go to next state
+        currentState = states[currentState].fin(char_s)->second;
         
-        int currentState = 1;
-
-        for(auto c: s){
-            // a. map the char to valid alphabets of our dfa
-            string char_s = "";
-            if(isdigit(c)){
-                char_s = "digit";
-            }else if(c==' '){
-                char_s = "space";
-            }else if(c=='+' ||c =='-'){
-                char_s ="sign";
-            }else{
-                char_s = c;
-            }
-            //b. check if the i/p is present in current state
-            if(states[currentState].find(char_s) == states[currentState].end()){
-                return false;   //if not present return false
-            }
-
-            //c. if present go to next state
-            currentState = states[currentState].find(char_s)->second;
-            
-        }
-        //d. check if the ended state is final state
-        if (final_state.find(currentState) == final_state.end()){
-            return false;  //if not return false
-        }
-        //if yes in one of the final state return true 
-        return true;
     }
+    //d. check if the ended state is final state
+    if (final_state.find(currentState) == final_state.end()){
+            return false;  //if not return false
+    }
+        //if yes in one of the final state return true 
+    return true;
+}
 {% endhighlight %}
