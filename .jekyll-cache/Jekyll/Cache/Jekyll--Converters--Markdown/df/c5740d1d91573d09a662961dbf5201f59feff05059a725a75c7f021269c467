@@ -1,4 +1,4 @@
-I"L<p>Validate if a given string can be interpreted as a decimal number.</p>
+I"ŠK<p>Validate if a given string can be interpreted as a decimal number.</p>
 
 <p><strong><a href="https://leetcode.com/problems/valid-number/">Go to Problem</a></strong></p>
 
@@ -164,40 +164,38 @@ if not return false else return true.
     <span class="p">}</span>
         
         
-        <span class="n">unordered_map</span><span class="o">&lt;</span><span class="kt">int</span><span class="p">,</span><span class="kt">int</span><span class="o">&gt;</span> <span class="n">final_state</span><span class="p">;</span>
-        <span class="n">final_state</span><span class="p">.</span><span class="n">insert</span><span class="p">({</span><span class="mi">3</span><span class="p">,</span><span class="mi">0</span><span class="p">});</span>
-        <span class="n">final_state</span><span class="p">.</span><span class="n">insert</span><span class="p">({</span><span class="mi">5</span><span class="p">,</span><span class="mi">0</span><span class="p">});</span>
-        <span class="n">final_state</span><span class="p">.</span><span class="n">insert</span><span class="p">({</span><span class="mi">8</span><span class="p">,</span><span class="mi">0</span><span class="p">});</span>
-        <span class="n">final_state</span><span class="p">.</span><span class="n">insert</span><span class="p">({</span><span class="mi">9</span><span class="p">,</span><span class="mi">0</span><span class="p">});</span>
+    <span class="n">unordered_map</span><span class="o">&lt;</span><span class="kt">int</span><span class="p">,</span><span class="kt">int</span><span class="o">&gt;</span> <span class="n">final_state</span><span class="p">;</span>
+    <span class="n">final_state</span><span class="p">.</span><span class="n">insert</span><span class="p">({</span><span class="mi">3</span><span class="p">,</span><span class="mi">0</span><span class="p">});</span>
+    <span class="n">final_state</span><span class="p">.</span><span class="n">insert</span><span class="p">({</span><span class="mi">5</span><span class="p">,</span><span class="mi">0</span><span class="p">});</span>
+    <span class="n">final_state</span><span class="p">.</span><span class="n">insert</span><span class="p">({</span><span class="mi">8</span><span class="p">,</span><span class="mi">0</span><span class="p">});</span>
+    <span class="n">final_state</span><span class="p">.</span><span class="n">insert</span><span class="p">({</span><span class="mi">9</span><span class="p">,</span><span class="mi">0</span><span class="p">});</span>
+    
+    <span class="kt">int</span> <span class="n">currentState</span> <span class="o">=</span> <span class="mi">1</span><span class="p">;</span>
+    <span class="k">for</span><span class="p">(</span><span class="k">auto</span> <span class="n">c</span><span class="o">:</span> <span class="n">s</span><span class="p">){</span>
+        <span class="c1">// a. map the char to valid alphabets of ourdfa</span>
+        <span class="n">string</span> <span class="n">char_s</span> <span class="o">=</span> <span class="s">""</span><span class="p">;</span>
+        <span class="k">if</span><span class="p">(</span><span class="n">isdigit</span><span class="p">(</span><span class="n">c</span><span class="p">)){</span>
+            <span class="n">char_s</span> <span class="o">=</span> <span class="s">"digit"</span><span class="p">;</span>
+        <span class="p">}</span><span class="k">else</span> <span class="k">if</span><span class="p">(</span><span class="n">c</span><span class="o">==</span><span class="sc">' '</span><span class="p">){</span>
+            <span class="n">char_s</span> <span class="o">=</span> <span class="s">"space"</span><span class="p">;</span>
+        <span class="p">}</span><span class="k">else</span> <span class="k">if</span><span class="p">(</span><span class="n">c</span><span class="o">==</span><span class="sc">'+'</span> <span class="o">||</span><span class="n">c</span> <span class="o">==</span><span class="sc">'-'</span><span class="p">){</span>
+            <span class="n">char_s</span> <span class="o">=</span><span class="s">"sign"</span><span class="p">;</span>
+        <span class="p">}</span><span class="k">else</span><span class="p">{</span>
+            <span class="n">char_s</span> <span class="o">=</span> <span class="n">c</span><span class="p">;</span>
+        <span class="p">}</span>
+        <span class="c1">//b. check if the i/p is present in currentstate</span>
+        <span class="k">if</span><span class="p">(</span><span class="n">states</span><span class="p">[</span><span class="n">currentState</span><span class="p">].</span><span class="n">find</span><span class="p">(</span><span class="n">char_s</span><span class="p">)</span> <span class="o">==</span><span class="n">states</span><span class="p">[</span><span class="n">currentState</span><span class="p">].</span><span class="n">end</span><span class="p">()){</span>
+            <span class="k">return</span> <span class="nb">false</span><span class="p">;</span>   <span class="c1">//if not present returnfalse</span>
+        <span class="p">}</span>
+        <span class="c1">//c. if present go to next state</span>
+        <span class="n">currentState</span> <span class="o">=</span> <span class="n">states</span><span class="p">[</span><span class="n">currentState</span><span class="p">].</span><span class="n">fin</span><span class="p">(</span><span class="n">char_s</span><span class="p">)</span><span class="o">-&gt;</span><span class="n">second</span><span class="p">;</span>
         
-        <span class="kt">int</span> <span class="n">currentState</span> <span class="o">=</span> <span class="mi">1</span><span class="p">;</span>
-
-        <span class="k">for</span><span class="p">(</span><span class="k">auto</span> <span class="n">c</span><span class="o">:</span> <span class="n">s</span><span class="p">){</span>
-            <span class="c1">// a. map the char to valid alphabets of our dfa</span>
-            <span class="n">string</span> <span class="n">char_s</span> <span class="o">=</span> <span class="s">""</span><span class="p">;</span>
-            <span class="k">if</span><span class="p">(</span><span class="n">isdigit</span><span class="p">(</span><span class="n">c</span><span class="p">)){</span>
-                <span class="n">char_s</span> <span class="o">=</span> <span class="s">"digit"</span><span class="p">;</span>
-            <span class="p">}</span><span class="k">else</span> <span class="k">if</span><span class="p">(</span><span class="n">c</span><span class="o">==</span><span class="sc">' '</span><span class="p">){</span>
-                <span class="n">char_s</span> <span class="o">=</span> <span class="s">"space"</span><span class="p">;</span>
-            <span class="p">}</span><span class="k">else</span> <span class="k">if</span><span class="p">(</span><span class="n">c</span><span class="o">==</span><span class="sc">'+'</span> <span class="o">||</span><span class="n">c</span> <span class="o">==</span><span class="sc">'-'</span><span class="p">){</span>
-                <span class="n">char_s</span> <span class="o">=</span><span class="s">"sign"</span><span class="p">;</span>
-            <span class="p">}</span><span class="k">else</span><span class="p">{</span>
-                <span class="n">char_s</span> <span class="o">=</span> <span class="n">c</span><span class="p">;</span>
-            <span class="p">}</span>
-            <span class="c1">//b. check if the i/p is present in current state</span>
-            <span class="k">if</span><span class="p">(</span><span class="n">states</span><span class="p">[</span><span class="n">currentState</span><span class="p">].</span><span class="n">find</span><span class="p">(</span><span class="n">char_s</span><span class="p">)</span> <span class="o">==</span> <span class="n">states</span><span class="p">[</span><span class="n">currentState</span><span class="p">].</span><span class="n">end</span><span class="p">()){</span>
-                <span class="k">return</span> <span class="nb">false</span><span class="p">;</span>   <span class="c1">//if not present return false</span>
-            <span class="p">}</span>
-
-            <span class="c1">//c. if present go to next state</span>
-            <span class="n">currentState</span> <span class="o">=</span> <span class="n">states</span><span class="p">[</span><span class="n">currentState</span><span class="p">].</span><span class="n">find</span><span class="p">(</span><span class="n">char_s</span><span class="p">)</span><span class="o">-&gt;</span><span class="n">second</span><span class="p">;</span>
-            
-        <span class="p">}</span>
-        <span class="c1">//d. check if the ended state is final state</span>
-        <span class="k">if</span> <span class="p">(</span><span class="n">final_state</span><span class="p">.</span><span class="n">find</span><span class="p">(</span><span class="n">currentState</span><span class="p">)</span> <span class="o">==</span> <span class="n">final_state</span><span class="p">.</span><span class="n">end</span><span class="p">()){</span>
+    <span class="p">}</span>
+    <span class="c1">//d. check if the ended state is final state</span>
+    <span class="k">if</span> <span class="p">(</span><span class="n">final_state</span><span class="p">.</span><span class="n">find</span><span class="p">(</span><span class="n">currentState</span><span class="p">)</span> <span class="o">==</span> <span class="n">final_state</span><span class="p">.</span><span class="n">end</span><span class="p">()){</span>
             <span class="k">return</span> <span class="nb">false</span><span class="p">;</span>  <span class="c1">//if not return false</span>
-        <span class="p">}</span>
+    <span class="p">}</span>
         <span class="c1">//if yes in one of the final state return true </span>
-        <span class="k">return</span> <span class="nb">true</span><span class="p">;</span>
-    <span class="p">}</span></code></pre></figure>
+    <span class="k">return</span> <span class="nb">true</span><span class="p">;</span>
+<span class="p">}</span></code></pre></figure>
 :ET
