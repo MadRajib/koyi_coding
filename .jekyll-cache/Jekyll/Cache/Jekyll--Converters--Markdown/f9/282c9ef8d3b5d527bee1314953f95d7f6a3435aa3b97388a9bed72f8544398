@@ -1,0 +1,97 @@
+I"<h2 id="sliding-window-maximum"><strong><a href="http://ismaildemirbilek.com">Sliding Window Maximum</a></strong></h2>
+
+<p>Given an array nums, there is a sliding window of size k which is moving from the very left of the array to the very right. You can only see the k numbers in the window. Each time the sliding window moves right by one position. Return the max sliding window.</p>
+
+<p><strong>Follow up:</strong>
+Could you solve it in linear time?</p>
+
+<p><strong>Example:</strong></p>
+
+<div class="highlighter-rouge"><div class="highlight"><pre class="highlight"><code>Input: nums = [1,3,-1,-3,5,3,6,7], and k = 3
+Output: [3,3,5,5,6,7] 
+Explanation: 
+
+Window position                Max
+---------------               -----
+[1  3  -1] -3  5  3  6  7       3
+ 1 [3  -1  -3] 5  3  6  7       3
+ 1  3 [-1  -3  5] 3  6  7       5
+ 1  3  -1 [-3  5  3] 6  7       5
+ 1  3  -1  -3 [5  3  6] 7       6
+ 1  3  -1  -3  5 [3  6  7]      7
+
+</code></pre></div></div>
+
+<h3 id="solution">Solution:</h3>
+
+<h3 id="using-deque-time-complexity-on">Using Deque: Time complexity O(n)</h3>
+
+<p><strong>Deque:</strong></p>
+
+<blockquote>
+  <p>In computer science, a <strong>double-ended queue</strong> (abbreviated to <strong>deque</strong>, pronounced <em>deck</em>) is an abstract data type that generalizes a queue, for which elements can be added to or removed from either the front (head) or back (tail).</p>
+</blockquote>
+
+<p>Here <strong>Deque</strong> is used to store elements in decreasing order <br />
+and only the elements which are possible to be maximum of the window.</p>
+
+<p>Since we will require the position of an element in Deque to find if the 
+element falls out of window, we will use Deque to store indexes instead of
+elements.</p>
+
+<p>In every time the front of the deque will hold the max element in the window!.</p>
+
+<p><strong>Algorithm</strong>:
+First create a window of k elements – <br />
+    Every new element going into window(deque):
+    1. Remove all the smaller elements indexes from the deque 
+    (since these elements are no longer required) and 
+    1. add the new element at the end. 
+Once the window is created for first k elements then <br />
+    For every new element going into window(deque):
+    1. Save the front index (since it is the index of max element of current window!).
+    1. Remove the element index which falls outside the window.
+    &gt;i.e indexs (<em>from the front of window</em>) which are less than <strong>i-k+1</strong>.<br />
+    &gt;Since a k size window will hold j-i+1 elements,
+    where j and i are end and starting index of window.
+    1. And again remove all the smaller elements indexes from the deque 
+    (since these elements are no longer required) and 
+    1. add the new element index at the end.
+At the end max element the last window is yet to be saved,
+    so we save it.</p>
+
+<p><strong>C++</strong></p>
+
+<figure class="highlight"><pre><code class="language-cpp" data-lang="cpp"><span class="n">vector</span><span class="o">&lt;</span><span class="kt">int</span><span class="o">&gt;</span> <span class="n">maxSlidingWindow</span><span class="p">(</span><span class="n">vector</span><span class="o">&lt;</span><span class="kt">int</span><span class="o">&gt;&amp;</span> <span class="n">nums</span><span class="p">,</span> <span class="kt">int</span> <span class="n">k</span><span class="p">)</span> <span class="p">{</span>
+    <span class="n">deque</span> <span class="o">&lt;</span><span class="kt">int</span><span class="o">&gt;</span> <span class="n">dq</span><span class="p">;</span>
+        
+    <span class="k">for</span><span class="p">(</span><span class="kt">int</span> <span class="n">i</span><span class="o">=</span><span class="mi">0</span><span class="p">;</span><span class="n">i</span><span class="o">&lt;</span><span class="n">k</span><span class="p">;</span><span class="n">i</span><span class="o">++</span><span class="p">){</span>
+        <span class="k">while</span><span class="p">(</span><span class="o">!</span><span class="n">dq</span><span class="p">.</span><span class="n">empty</span><span class="p">()</span> <span class="o">&amp;&amp;</span> <span class="n">nums</span><span class="p">[</span><span class="n">dq</span><span class="p">.</span><span class="n">back</span><span class="p">()]</span><span class="o">&lt;=</span> <span class="n">nums</span><span class="p">[</span><span class="n">i</span><span class="p">]){</span>
+            <span class="n">dq</span><span class="p">.</span><span class="n">pop_back</span><span class="p">();</span>
+        <span class="p">}</span>
+        <span class="n">dq</span><span class="p">.</span><span class="n">push_back</span><span class="p">(</span><span class="n">i</span><span class="p">);</span>
+    <span class="p">}</span>
+        
+    <span class="n">vector</span><span class="o">&lt;</span><span class="kt">int</span><span class="o">&gt;</span> <span class="n">res</span><span class="p">;</span>
+    <span class="k">for</span><span class="p">(</span><span class="kt">int</span> <span class="n">i</span><span class="o">=</span><span class="n">k</span><span class="p">;</span><span class="n">i</span><span class="o">&lt;</span><span class="n">nums</span><span class="p">.</span><span class="n">size</span><span class="p">();</span><span class="n">i</span><span class="o">++</span><span class="p">){</span>
+            
+        <span class="k">if</span><span class="p">(</span><span class="o">!</span><span class="n">dq</span><span class="p">.</span><span class="n">empty</span><span class="p">())</span>
+            <span class="n">res</span><span class="p">.</span><span class="n">push_back</span><span class="p">(</span><span class="n">nums</span><span class="p">[</span><span class="n">dq</span><span class="p">.</span><span class="n">front</span><span class="p">()]);</span>
+            
+        <span class="k">while</span><span class="p">(</span><span class="o">!</span><span class="n">dq</span><span class="p">.</span><span class="n">empty</span><span class="p">()</span> <span class="o">&amp;&amp;</span> <span class="n">dq</span><span class="p">.</span><span class="n">front</span><span class="p">()</span><span class="o">&lt;</span><span class="n">i</span><span class="o">-</span><span class="n">k</span><span class="o">+</span><span class="mi">1</span><span class="p">){</span>
+            <span class="n">dq</span><span class="p">.</span><span class="n">pop_front</span><span class="p">();</span>
+        <span class="p">}</span>
+            
+        <span class="k">while</span><span class="p">(</span><span class="o">!</span><span class="n">dq</span><span class="p">.</span><span class="n">empty</span><span class="p">()</span> <span class="o">&amp;&amp;</span> <span class="n">nums</span><span class="p">[</span><span class="n">dq</span><span class="p">.</span><span class="n">back</span><span class="p">()]</span><span class="o">&lt;=</span> <span class="n">nums</span><span class="p">[</span><span class="n">i</span><span class="p">]){</span>
+            <span class="n">dq</span><span class="p">.</span><span class="n">pop_back</span><span class="p">();</span>
+        <span class="p">}</span>
+        
+        <span class="n">dq</span><span class="p">.</span><span class="n">push_back</span><span class="p">(</span><span class="n">i</span><span class="p">);</span>
+    <span class="p">}</span>
+    <span class="k">if</span><span class="p">(</span><span class="o">!</span><span class="n">dq</span><span class="p">.</span><span class="n">empty</span><span class="p">())</span>
+        <span class="n">res</span><span class="p">.</span><span class="n">push_back</span><span class="p">(</span><span class="n">nums</span><span class="p">[</span><span class="n">dq</span><span class="p">.</span><span class="n">front</span><span class="p">()]);</span>
+        
+        
+    <span class="k">return</span> <span class="n">res</span><span class="p">;</span>
+<span class="p">}</span></code></pre></figure>
+:ET

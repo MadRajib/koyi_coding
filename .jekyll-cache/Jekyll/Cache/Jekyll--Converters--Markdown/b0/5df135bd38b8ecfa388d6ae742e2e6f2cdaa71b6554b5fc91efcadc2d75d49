@@ -1,0 +1,149 @@
+I"<p>Given a connected graph made of triangles with each vertex assigned a color, find identically
+colored connected components.</p>
+
+<p>There are only three colors red, green, and blue are
+considered and they are represented by 1,2,and 3 integers respectively.</p>
+
+<p>Triangles are
+represented by three vertex indices i.e. [0 4 3] red triangle from the example below.</p>
+
+<p><img src="/assets/media/connected-graph.png" alt="connected graph" /></p>
+
+<p>The connected components in this graph are :<br />
+Red: {0 ,2 ,3 ,4}<br />
+Blue: {1}<br />
+Green: {5,6} , {8,7}</p>
+
+<p>We are given two parameters saved in file:</p>
+
+<ol>
+  <li>List of traingles in the graph (in triangle.txt).
+    <div class="language-bash highlighter-rouge"><div class="highlight"><pre class="highlight"><code> <span class="c"># traingle.txt</span>
+ 0 4 3
+ 0 1 3
+ 2 3 1
+ 5 6 3
+ 4 3 5
+ 1 8 7
+ 3 2 6
+</code></pre></div>    </div>
+  </li>
+  <li>List of colors for all the vertices in order (in colors.txt).
+ Here we are given three colors code<br />
+     <strong>1 =&gt; Red</strong><br />
+     <strong>2 =&gt; Green</strong> and<br />
+     <strong>3 =&gt; Blue</strong>
+    <div class="language-bash highlighter-rouge"><div class="highlight"><pre class="highlight"><code> <span class="c"># colors.txt</span>
+ 1 <span class="c"># node 0</span>
+ 3 <span class="c"># node 1</span>
+ 1 <span class="c"># node 2</span>
+ 1 <span class="c"># node 3</span>
+ 1 <span class="c"># node 4</span>
+ 2 <span class="c"># node 5</span>
+ 2 <span class="c"># node 6</span>
+ 2 <span class="c"># node 7</span>
+ 2 <span class="c"># node 8</span>
+</code></pre></div>    </div>
+  </li>
+</ol>
+
+<p>The expected results for this graph should be sorted order by the component size:</p>
+
+<div class="language-bash highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="c"># result.txt</span>
+0 2 3 4
+5 6
+7 8
+1
+</code></pre></div></div>
+
+<h2 id="solution">Solution</h2>
+
+<p>We will use the logic of <em>finding connected component from a graph</em> with a little modification. Go to the following links to understand how it is done.<br />
+<a href="https://en.wikipedia.org/wiki/Component_(graph_theory)">Comoenent (graph theory)</a><br />
+<a href="https://www.geeksforgeeks.org/connected-components-in-an-undirected-graph/">connected-components-in-an-undirected-graph</a></p>
+
+<h3 id="approach">Approach:</h3>
+<hr />
+<h4 id="first-thing-first-">First thing first !</h4>
+
+<p><strong><em>How can we find connected components from a graph?</em></strong></p>
+
+<p>Well it’s simple, now that we have adjacency list, we will visit each node and visit each node that can be reached from this node. We will use DFs for this purpose. And to keep track of nodes we visited for a particular node we will maintain an queue.</p>
+
+<blockquote>
+  <p>Note: we will also maintain an array of visited nodes so that we don’t create duplicate components.Since only a node can be present only in one component.</p>
+</blockquote>
+
+<p>After we have visited all the reachable nodes from a particular node.
+we save the queue which has all the reachable nodes.
+Then we start with another unvisited node and repeat the same process with a newly empty queue.</p>
+
+<p>At the end after we have visited all the nodes we will have collection of set of connected components.</p>
+
+<p>This is how we can use DFS to find all the connected components.</p>
+
+<hr />
+
+<h4 id="coming-to-the-solution">Coming to the Solution!</h4>
+
+<p><strong><em>But how can we find identical connected components</em></strong></p>
+
+<p>But wait we all ready have a fully connected graph, so if we apply the above logic we will have only one set containing all the nodes, because there is only one connected components consisting of all the nodes.</p>
+
+<p>So we need to tweak ouf DFS a bit!
+Our approach will just the same visit all the neighbors reachable from the current node. But instead of visited every neighbors  we will only visit those neighbor who has same color as the node .<br />
+That way we will only visit same colored connected nodes.</p>
+
+<p>Wow !! It’s that simple. And its time code the logic!</p>
+
+<hr />
+
+<h3 id="code-time">Code Time:</h3>
+
+<h4 id="1-declaring-a-skelton-for-logic">1. Declaring a Skelton for logic.</h4>
+<p>We will create a class with required variables and functions:</p>
+
+<script src="https://gist.github.com/MadRajib/bb372e0a22ff4e8bb67c5f32fb0fd2dc.js"></script>
+
+<h4 id="2-lets-implement-functions-one-by-one">2. Lets implement functions one by one.</h4>
+
+<p>We will implement the functions that deals with the input first!.</p>
+
+<p>1.<strong><em>ReadColorFile</em></strong> function:</p>
+<blockquote>
+  <p><strong><em>input</em></strong>: path to the color file.<br />
+    <strong><em>output</em></strong>: void<br />
+    <strong><em>processing</em></strong>: Reads data from the input file,<br />
+    converts the string numbers to int and<br />
+    stores them in <strong><em>vertex_colors</em></strong> vector.</p>
+</blockquote>
+
+<script src="https://gist.github.com/MadRajib/b3139db908a2b1c170e81e656298c48d.js"></script>
+
+<p>2.<strong><em>ReadTriangleFile</em></strong> function:</p>
+<blockquote>
+  <p><strong><em>input</em></strong>: path to the color file.<br />
+    <strong><em>output</em></strong>: void<br />
+    <strong><em>processing</em></strong>: Reads data from the input file,<br />
+    converts the string numbers to int and<br />
+    stores them in <strong><em>vertex_colors</em></strong> vector.</p>
+</blockquote>
+
+<script src="https://gist.github.com/MadRajib/225a8d7bf50961280080c3af4187d9a6.js"></script>
+
+<p>3.Now we can initialize the constructor:
+<script src="https://gist.github.com/MadRajib/6fdfc60cb6473f2b14caaa1a4dd47788.js"></script></p>
+
+<p>4.Finally we can work on the main algorithm:
+<script src="https://gist.github.com/MadRajib/cb4a7bdb04589f0cbfec71571fe7f37c.js"></script></p>
+
+<p>5.Now the main function and to write result to the output file.
+<script src="https://gist.github.com/MadRajib/02a964c020b2cbb24f06cfa4821b15a8.js"></script></p>
+
+<ol>
+  <li>Full Code :</li>
+</ol>
+
+<script src="https://gist.github.com/MadRajib/65b2a643fdebe16dc0db08b541c64584.js"></script>
+
+:ET
